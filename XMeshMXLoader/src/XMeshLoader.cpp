@@ -1880,8 +1880,14 @@ RefResult XMeshLoader::NotifyRefChanged( Interval /*changeInt*/, RefTargetHandle
 #else
         return REF_STOP;
 #endif
+#if MAX_RELEASE_R24    
     // TODO : I think we shouldn't need this, but parameters don't appear without it.
-    case REFMSG_GET_PARAM_NAME: {
+    case REFMSG_GET_PARAM_NAME_LOCALIZED:
+#else
+    // TODO : I think we shouldn't need this, but parameters don't appear without it.
+    case REFMSG_GET_PARAM_NAME: 
+#endif
+    {
         GetParamName* gpd = (GetParamName*)partID;
         TCHAR* s = 0;
         if( pblock2 && gpd->index < pblock2->NumParams() ) {

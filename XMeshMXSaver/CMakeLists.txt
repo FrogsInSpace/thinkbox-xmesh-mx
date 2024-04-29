@@ -8,15 +8,17 @@ find_package( thinkboxcmlibrary REQUIRED )
 include( PrecompiledHeader )
 include( ThinkboxCMLibrary )
 
-set( SUPPORTED_MAX_VERSIONS 2022 2023 )
+set( SUPPORTED_MAX_VERSIONS 2017 2018 2019 2020 2021 2022 2023 2024 2025 2026 )
 
-option( MAX_VERSION "The version of the 3ds Max SDK to build the library against." 2022 )
+option( MAX_VERSION "The version of the 3ds Max SDK to build the library against." 2024 )
 
 if( NOT MAX_VERSION IN_LIST SUPPORTED_MAX_VERSIONS )
   message( FATAL_ERROR "ERROR: Cannot build for unsupported 3ds Max version ${MAX_VERSION}" )
 endif()
 
 add_library( xmeshmxsaver SHARED )
+
+set_property( TARGET xmeshmxsaver PROPERTY CXX_STANDARD 17 )
 
 set_target_properties( xmeshmxsaver PROPERTIES OUTPUT_NAME "XMeshSaver" )
 set_target_properties( xmeshmxsaver PROPERTIES PREFIX "" )
@@ -49,6 +51,9 @@ add_precompiled_header( xmeshmxsaver stdafx.h SOURCE_CXX stdafx.cpp )
 # As a result, we need to set this to tell Boost to look for the right libraries to
 # link against.
 target_compile_definitions( xmeshmxsaver PUBLIC BOOST_AUTO_LINK_SYSTEM )
+
+# restore auto_ptr in c++17
+target_compile_definitions( xmeshmxsaver PRIVATE _HAS_AUTO_PTR_ETC=1 )
 
 find_package( thinkboxlibrary REQUIRED )
 find_package( thinkboxmxlibrary REQUIRED )
