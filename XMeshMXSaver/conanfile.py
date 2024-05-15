@@ -62,7 +62,7 @@ UNUSED_LICENSE_DENYLIST: set[str] = {
 
 class XMeshMXSaverConan(ConanFile):
     name: str = 'xmeshmxsaver'
-    version: str = '1.9.2'
+    version: str = '1.9.3'
     license: str = 'Apache-2.0'
     description: str = 'The XMesh Saver Plugin for 3ds Max'
     settings: dict[str, Any] = SETTINGS
