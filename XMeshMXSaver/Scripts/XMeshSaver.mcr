@@ -4794,7 +4794,9 @@ macroScript AboutXMesh category:"XMesh"
 			if maxVer == "16" do maxVer = "15"
 			if maxVer == "14" do maxVer = "13"
 			edt_installationfolder.text = XMeshSaverUtils.XMeshSaverHome
-			edt_dlrdate.text = try(getFileModDate (XMeshSaverUtils.XMeshSaverHome + "3dsMax20"+maxVer+"\\x64\\XMeshSaver.dlo"))catch("???")
+			local plugFilePath=XMeshSaverUtils.XMeshSaverHome + "\\plugin\\XMeshSaver_20"+maxVer+".dlo"
+
+			edt_dlrdate.text = try(getFileModDate plugFilePath) catch("???")
 			try
 			(
 				dnc_attributions.multiline = true

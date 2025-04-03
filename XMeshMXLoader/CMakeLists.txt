@@ -20,7 +20,7 @@ add_library( xmeshmxloader SHARED )
 
 set_property( TARGET xmeshmxloader PROPERTY CXX_STANDARD 17 )
 
-set_target_properties( xmeshmxloader PROPERTIES OUTPUT_NAME "XMeshLoader" )
+set_target_properties( xmeshmxloader PROPERTIES OUTPUT_NAME "XMeshLoader_${MAX_VERSION}" )
 set_target_properties( xmeshmxloader PROPERTIES PREFIX "" )
 set_target_properties( xmeshmxloader PROPERTIES SUFFIX ".dlo" )
 

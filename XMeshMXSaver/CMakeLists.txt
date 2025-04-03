@@ -20,7 +20,7 @@ add_library( xmeshmxsaver SHARED )
 
 set_property( TARGET xmeshmxsaver PROPERTY CXX_STANDARD 17 )
 
-set_target_properties( xmeshmxsaver PROPERTIES OUTPUT_NAME "XMeshSaver" )
+set_target_properties( xmeshmxsaver PROPERTIES OUTPUT_NAME "XMeshSaver_${MAX_VERSION}" )
 set_target_properties( xmeshmxsaver PROPERTIES PREFIX "" )
 set_target_properties( xmeshmxsaver PROPERTIES SUFFIX ".dlo" )
 
