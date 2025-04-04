@@ -1374,20 +1374,29 @@ MacroScript XMeshSaver category:"Thinkbox" buttonText:"XMesh Saver" toolTip:"Sav
 			source+="   return ((String.Compare(((ListViewItem)x).SubItems[col].Text, ((ListViewItem)y).SubItems[col].Text))*sort);\n"
 			source+="  }\n"
 			source+="}\n"
-			csharpProvider = dotnetobject "Microsoft.CSharp.CSharpCodeProvider"
-			compilerParams = dotnetobject "System.CodeDom.Compiler.CompilerParameters"
-			compilerParams.ReferencedAssemblies.AddRange #("System.dll", "System.Windows.Forms.dll")
-			compilerParams.GenerateInMemory = true
-			compilerResults = csharpProvider.CompileAssemblyFromSource compilerParams #(source)
-			if compilerResults.Errors.Count == 0 then
+			
+			if( (maxversion())[1] < 28000 ) then
 			(
-				compilerResults.CompiledAssembly
+				csharpProvider = dotnetobject "Microsoft.CSharp.CSharpCodeProvider"
+				compilerParams = dotnetobject "System.CodeDom.Compiler.CompilerParameters"
+				compilerParams.ReferencedAssemblies.AddRange #("System.dll", "System.Windows.Forms.dll")
+				compilerParams.GenerateInMemory = true
+				compilerResults = csharpProvider.CompileAssemblyFromSource compilerParams #(source)
+				if compilerResults.Errors.Count == 0 then
+				(
+					compilerResults.CompiledAssembly
+				)
+				else
+				(
+					for i = 0 to compilerResults.Errors.Count-1 do
+						format "%\n" compilerResults.Errors.Item[i].ErrorText
+					false
+				)
 			)
 			else
 			(
-				for i = 0 to compilerResults.Errors.Count-1 do
-					format "%\n" compilerResults.Errors.Item[i].ErrorText
-				false
+				compHelper = dotnetclass "CSharpUtilities.CSharpCompilationHelper"				
+				compHelper.compile source #()						
 			)
 		)
 		local theAssembly = CompileComparer()
@@ -3955,6 +3964,11 @@ MacroScript XMeshSaver category:"Thinkbox" buttonText:"XMesh Saver" toolTip:"Sav
 		button btn_submit "SUBMIT MESH SAVING JOB TO DEADLINE" width:460 height:45 align:#center offset:[0,8]
 
 		label lbl_getDeadline01 "DEADLINE WAS NOT DETECTED ON YOUR SYSTEM!" visible:false pos:[15,15]
+		label lbl_getDeadline02 "NOTE: Free Deadline support might have changed ( supported up to 2 NODES without limitations)." visible:false pos:[15,40]
+		label lbl_getDeadline03 "You could try to install Deadline to take advantage of XMeshSaver's Deadline support." visible:false pos:[15,65]
+		label lbl_getDeadline04 "In the past it was possible to download Deadline from the link below:" visible:false pos:[15,90]
+		hyperlink url_getDeadline01 "https://us-east-1.console.aws.amazon.com/deadlinecloud/home?region=us-east-1#/thinkbox" address:"https://us-east-1.console.aws.amazon.com/deadlinecloud/home?region=us-east-1#/thinkbox" visible:false pos:[15,115] color:blue hovercolor:red
+		
 
 		fn GetDeadlineNetworkRoot =
 		(
