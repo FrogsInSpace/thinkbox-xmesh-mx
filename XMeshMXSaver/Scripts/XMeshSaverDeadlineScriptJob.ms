@@ -175,7 +175,7 @@
 		SaveMeshesToSequence = XMeshSaverUtils.SaveMeshesToSequence
 	)
 
-	XMeshSaverUtils.AcquireLicense()
+	-- XMeshSaverUtils.AcquireLicense()
 	try
 	(
 		if setSceneRender do
@@ -278,10 +278,10 @@
 	)
 	catch
 	(
-		XMeshSaverUtils.ReleaseLicense()
+		-- XMeshSaverUtils.ReleaseLicense()
 		throw()
 	)
-	XMeshSaverUtils.ReleaseLicense()
+	-- XMeshSaverUtils.ReleaseLicense()
 
 	du.LogMessage ("Finished XMesh Saving Job in "+ ((timestamp() - st)/1000.0) as string + " sec.") --output the job duration
 	true  --return true if the task has finished successfully

@@ -3085,10 +3085,9 @@ MacroScript XMeshSaver category:"Thinkbox" buttonText:"XMesh Saver" toolTip:"Sav
 			-- reset sequence
 			XMeshSaverUtils.SetSequenceName "c:\\"
 
-			XMeshSaverUtils.AcquireLicense()
 			try
 			(
-				if XMeshSaverUtils.HasLicense do
+				-- if XMeshSaverUtils.HasLicense do
 				(
 					disableSceneRedraw()
 					try
@@ -3523,10 +3522,10 @@ MacroScript XMeshSaver category:"Thinkbox" buttonText:"XMesh Saver" toolTip:"Sav
 			)
 			catch
 			(
-				XMeshSaverUtils.ReleaseLicense()
+				-- XMeshSaverUtils.ReleaseLicense()
 				throw()
 			)
-			XMeshSaverUtils.ReleaseLicense()
+			-- XMeshSaverUtils.ReleaseLicense()
 			XMesh_saveParams_rollout.updateAllLists reload:false
 			XMeshSaverUtils.LogStats ("XMesh Cache Time: "+((timestamp()-st)/1000.0) as string+ " seconds." )
 		)
@@ -3752,7 +3751,7 @@ MacroScript XMeshSaver category:"Thinkbox" buttonText:"XMesh Saver" toolTip:"Sav
 			tooltip:"Sets the XMesh Saver Log Window Filter Level.\n\nIt can also be overridden from the Log Window's Menu."
 
 		button btn_openLog "Open Log Window..." width:115  offset:[2,2] align:#center tooltip:"Opens the XMesh Saver Log Window..."
-		button btn_configureLicense "Configure License..." width:115 align:#right offset:[10,2] tooltip:"Opens the Configure License Dialog..."
+		button btn_configureLicense "Configure License..." enabled:false width:115 align:#right offset:[10,2] tooltip:"Opens the Configure License Dialog..."
 
 		on ddl_logLevel selected itm do XMeshSaverUtils.LoggingLevel = (itm-1)
 		on chk_openLogOnError changed state do XMeshSaverUtils.PopupLogWindowOnError = state
@@ -3926,7 +3925,7 @@ MacroScript XMeshSaver category:"Thinkbox" buttonText:"XMesh Saver" toolTip:"Sav
 
 		on advanceSettings_rollout close do
 		(
-			XMeshSaverUtils.ReleaseLicense()
+			--XMeshSaverUtils.ReleaseLicense()
 		)
 
 		on advancedSettings_rollout rolledUp val do
