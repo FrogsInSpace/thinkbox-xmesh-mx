@@ -91,7 +91,7 @@ class LegacyXMeshLoader : public SimpleObject2, public frantic::max3d::fpwrapper
     // Virtual methods From BaseObject
     CreateMouseCallBack* GetCreateMouseCallBack() { return NULL; }
 #if MAX_VERSION_MAJOR >= 24
-    const TCHAR* GetObjectName( bool localized ) { return _T( LegacyXMeshLoader_CLASS_NAME ); }
+    const TCHAR* GetObjectName( bool localized ) const override { return _T( LegacyXMeshLoader_CLASS_NAME ); }
 #elif MAX_VERSION_MAJOR >= 15
     const TCHAR* GetObjectName() { return _T( LegacyXMeshLoader_CLASS_NAME ); }
 #else

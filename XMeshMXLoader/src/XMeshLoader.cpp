@@ -1499,8 +1499,13 @@ ClassDesc* GetXMeshLoaderClassDesc() {
 }
 
 static void notify_render_preeval( void* param, NotifyInfo* info ) {
-    XMeshLoader* pMeshLoader = (XMeshLoader*)param;
+#if MAX_VERSION_MAJOR < 27
     TimeValue* pTime = (TimeValue*)info->callParam;
+#else
+    TimeValue* pTime = GetNotifyParam<NOTIFY_RENDER_PREEVAL>(info);
+#endif
+
+    XMeshLoader* pMeshLoader = (XMeshLoader*)param;
     if( pMeshLoader && pTime ) {
         pMeshLoader->SetRenderTime( *pTime );
         pMeshLoader->SetEmptyValidityAndNotifyDependents();
@@ -1508,8 +1513,13 @@ static void notify_render_preeval( void* param, NotifyInfo* info ) {
 }
 
 static void notify_post_renderframe( void* param, NotifyInfo* info ) {
-    XMeshLoader* pMeshLoader = (XMeshLoader*)param;
+#if MAX_VERSION_MAJOR < 27
     RenderGlobalContext* pContext = (RenderGlobalContext*)info->callParam;
+#else
+    RenderGlobalContext* pContext = GetNotifyParam<NOTIFY_POST_RENDERFRAME>(info);
+#endif
+
+    XMeshLoader* pMeshLoader = (XMeshLoader*)param;
     if( pMeshLoader && pContext ) {
         pMeshLoader->ClearRenderTime();
     }
