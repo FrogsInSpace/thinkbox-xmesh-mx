@@ -9,9 +9,7 @@ import pprint
 
 
 VALID_MAX_CONFIGS: dict[tuple[str, str], set[str]] = {
-    ('Visual Studio', '15'): { '2017', '2018', '2019', '2020', '2021', '2022' },
-    ('Visual Studio', '16'): { '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024' },
-    ('Visual Studio', '17'): { '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028' }
+    ('Visual Studio', '17'): { '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026', '2027' }
 }
 
 COMMON_PACKAGER_ARGS: dict[str, Any] = {
@@ -21,7 +19,7 @@ COMMON_PACKAGER_ARGS: dict[str, Any] = {
 }
 
 WINDOWS_PACKAGER_ARGS: dict[str, Any] = {
-    'visual_versions': ['15', '16', '17'],
+    'visual_versions': ['17'],
     'visual_runtimes': ['MD']
 }
 
