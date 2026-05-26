@@ -2,6 +2,13 @@ build/
 vcproject/
 *.rsp
 
+#auto-generated 
+third_party_licenses.txt
+XMeshMXLoader/XMeshLoaderVersion.h
+XMeshMXLoader/XMeshLoaderVersion.rc
+XMeshMXSaver/XMeshSaverVersion.h
+XMeshMXSaver/XMeshSaverVersion.rc
+
 # Conan 1.x generated files
 conanbuildinfo.*
 conaninfo.txt
