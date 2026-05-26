@@ -187,13 +187,17 @@ class XMeshLoader : public GeomObject, public frantic::max3d::fpwrapper::FFMixin
 
     // Virtual methods From BaseObject
     CreateMouseCallBack* GetCreateMouseCallBack();
-#if MAX_VERSION_MAJOR >= 24
-    const TCHAR* GetObjectName( bool localized ) const override { return _T( XMeshLoader_CLASS_NAME ); }
-#elif MAX_VERSION_MAJOR >= 15
-    const TCHAR* GetObjectName() { return _T( XMeshLoader_CLASS_NAME ); }
+
+#if MAX_VERSION_MAJOR < 15
+    MCHAR* GetObjectName() override {
+#elif MAX_VERSION_MAJOR < 24
+    const MCHAR* GetObjectName() override {
 #else
-    TCHAR* GetObjectName() { return _T( XMeshLoader_CLASS_NAME ); }
+    const MCHAR* GetObjectName( bool localized ) const override {
 #endif
+		return _T( XMeshLoader_CLASS_NAME ); 
+	}
+
     BOOL HasViewDependentBoundingBox() { return TRUE; }
 
     int Display( TimeValue t, INode* inode, ViewExp* pView, int flags );

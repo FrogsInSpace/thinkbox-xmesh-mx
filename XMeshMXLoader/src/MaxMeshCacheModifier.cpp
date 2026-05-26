@@ -407,10 +407,12 @@ FPInterface* MaxMeshCacheModifier::GetInterface( Interface_ID id ) {
     return NULL;
 }
 
-#if MAX_VERSION_MAJOR >= 15
+#if MAX_VERSION_MAJOR < 15
+MCHAR* MaxMeshCacheModifier::GetObjectName() {
+#elif MAX_VERSION_MAJOR < 24
 const MCHAR* MaxMeshCacheModifier::GetObjectName() {
 #else
-MCHAR* MaxMeshCacheModifier::GetObjectName() {
+const MCHAR* MaxMeshCacheModifier::GetObjectName( bool localized ) const {
 #endif
     return _M( "XMesh Cache" );
 }

@@ -105,13 +105,14 @@ class MaxMeshCacheModifier : public OSModifier,
     virtual RefTargetHandle Clone( RemapDir& remap );
 
     // From BaseObject
-#if MAX_VERSION_MAJOR >= 24
-    virtual const MCHAR* GetObjectName( bool localized );
-#elif MAX_VERSION_MAJOR >= 15
-    virtual const MCHAR* GetObjectName();
+#if MAX_VERSION_MAJOR < 15
+    MCHAR* GetObjectName() override;
+#elif MAX_VERSION_MAJOR < 24
+    const MCHAR* GetObjectName() override;
 #else
-    virtual MCHAR* GetObjectName();
+    const MCHAR* GetObjectName( bool localized ) const override;
 #endif
+
     virtual CreateMouseCallBack* GetCreateMouseCallBack();
     int NumInterfaces();
     FPInterface* GetInterface( int i );
