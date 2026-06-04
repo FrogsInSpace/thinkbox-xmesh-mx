@@ -24,6 +24,18 @@ set_target_properties( xmeshmxsaver PROPERTIES OUTPUT_NAME "XMeshSaver_${MAX_VER
 set_target_properties( xmeshmxsaver PROPERTIES PREFIX "" )
 set_target_properties( xmeshmxsaver PROPERTIES SUFFIX ".dlo" )
 
+# copy to installer staging area if the env variable is set
+if(DEFINED ENV{PACKAGING_FOLDER} AND NOT "$ENV{PACKAGING_FOLDER}" STREQUAL "")
+    set(STAGING_DIR "$ENV{PACKAGING_FOLDER}/XMeshSaver/Thinkbox_XMeshSaverMX_${MAX_VERSION}/Contents/plugin" )
+    add_custom_command(
+        TARGET xmeshmxsaver
+        POST_BUILD
+		# only when we are in release build
+        COMMAND $<$<CONFIG:Release>:${CMAKE_COMMAND}> -E make_directory "${STAGING_DIR}"
+        COMMAND $<$<CONFIG:Release>:${CMAKE_COMMAND}> -E copy_if_different "$<TARGET_FILE:xmeshmxsaver>" "${STAGING_DIR}/"
+    )
+endif()
+
 target_include_directories( xmeshmxsaver PUBLIC
                             $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
                             $<INSTALL_INTERFACE:include> )

@@ -24,6 +24,18 @@ set_target_properties( xmeshmxloader PROPERTIES OUTPUT_NAME "XMeshLoader_${MAX_V
 set_target_properties( xmeshmxloader PROPERTIES PREFIX "" )
 set_target_properties( xmeshmxloader PROPERTIES SUFFIX ".dlo" )
 
+# copy to installer staging area if the env variable is set
+if(DEFINED ENV{PACKAGING_FOLDER} AND NOT "$ENV{PACKAGING_FOLDER}" STREQUAL "")
+    set(STAGING_DIR "$ENV{PACKAGING_FOLDER}/XMeshLoader/Thinkbox_XMeshLoaderMX_${MAX_VERSION}/Contents/plugin" )
+    add_custom_command(
+        TARGET xmeshmxloader
+        POST_BUILD
+		# only when we are in release build
+        COMMAND $<$<CONFIG:Release>:${CMAKE_COMMAND}> -E make_directory "${STAGING_DIR}"
+        COMMAND $<$<CONFIG:Release>:${CMAKE_COMMAND}> -E copy_if_different "$<TARGET_FILE:xmeshmxloader>" "${STAGING_DIR}/"
+    )
+endif()
+
 target_include_directories( xmeshmxloader PUBLIC
                             $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
                             $<INSTALL_INTERFACE:include> )
